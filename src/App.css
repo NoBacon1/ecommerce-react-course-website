@@ -487,6 +487,10 @@ body {
   width: 100%;
 }
 
+.my-link {
+  cursor: pointer;
+}
+
 @media (max-width: 768px) {
   .navbar-container {
     flex-direction: column;
