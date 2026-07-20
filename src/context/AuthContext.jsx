@@ -13,13 +13,13 @@ export default function AuthProvider({ children }) {
         const users = JSON.parse(localStorage.getItem("users") || "[]"); {/*Look for any arrays in the local storage*/ }
 
         {/*If email being entered at sign up already exists */ }
-        if (users.find(u => u.email === email)) {
+        if (users.find((u) => u.email === email)) {
             return { success: false, error: "Email already exists" };
         }
         const newUser = { email, password };
         users.push(newUser);
         localStorage.setItem("users", JSON.stringify(users));
-        localStorage.setItem("currentUserEmail", email)
+        localStorage.setItem("currentUserEmail", email);
 
         {/*After the user signs up, log them in */ }
         setUser({ email });
@@ -28,17 +28,17 @@ export default function AuthProvider({ children }) {
     }
 
     function login(email, password) {
-        {/* Need to first get the list of users in the local storge*/}
+        {/* Need to first get the list of users in the local storge that have accounts*/}
         const users = JSON.parse(localStorage.getItem("users") || "[]");
-        const user = users.find((u) => u.email === email && u.password === password);
-
+        const user = users.find((u) => u.email === email && u.password === password); {/* Find the specific user in that list */}
+        console.log("Made it into the login function ", user)
         if (!user) {
             return {success:false, error: "Invalid email or password"};
         }
 
         {/*Once find the user, want to set the local storage */}
         localStorage.setItem('currentUserEmail', email);
-        setUser(null);
+        setUser({ email });
 
         return {success: true};
     }
