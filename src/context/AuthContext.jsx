@@ -1,6 +1,6 @@
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 
-export const AuthContext = createContext(null);
+const AuthContext = createContext(null);
 
 export default function AuthProvider({ children }) {
     const [user, setUser] = useState(
@@ -31,7 +31,7 @@ export default function AuthProvider({ children }) {
         {/* Need to first get the list of users in the local storge that have accounts*/}
         const users = JSON.parse(localStorage.getItem("users") || "[]");
         const user = users.find((u) => u.email === email && u.password === password); {/* Find the specific user in that list */}
-        console.log("Made it into the login function ", user)
+        
         if (!user) {
             return {success:false, error: "Invalid email or password"};
         }
@@ -55,4 +55,11 @@ export default function AuthProvider({ children }) {
     );
 }
 
+{/** CREATE A CUSTOM HOOK 
+    Remove the need to always have to import call the useContext hook every time
+    */}
+export function useAuth() {
+    const context = useContext(AuthContext); {/*Get back all the values from this context */}
 
+    return context;
+}
