@@ -8,20 +8,23 @@ import ProductDetails from "./pages/ProductDetails";
 
 import './App.css'
 import AuthProvider from './context/AuthContext';
+import CartProvider from './context/CartContext';
 
 function App() {
 
   return (
     <AuthProvider>
-    <div className="app">
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/auth" element={<Auth/>}/>
-        <Route path="/checkout" element={<Checkout />} />
-        <Route path="/products/:id" element={<ProductDetails />} /> {/** Created a param for the API */}
-      </Routes>
-    </div>
+      <CartProvider>
+        <div className="app">
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/auth" element={<Auth />} />
+            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/products/:id" element={<ProductDetails />} /> {/** Created a param for the API */}
+          </Routes>
+        </div>
+      </CartProvider>
     </AuthProvider>
   );
 }
